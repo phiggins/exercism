@@ -1,6 +1,6 @@
 module School where
   import qualified Data.Map as Map
-  import Data.List (sort)
+  import Data.List (insert)
 
   type School = Map.Map Int [String]
 
@@ -13,7 +13,7 @@ module School where
     Nothing -> []
 
   add :: Int -> String -> School -> School
-  add n name school = Map.insertWith (\x xs -> sort $ x ++ xs)  n [name] school
+  add n name school = Map.insertWith (\x xs -> insert (head x) xs)  n [name] school
 
   empty :: School
   empty = Map.empty
