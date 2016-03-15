@@ -1,21 +1,19 @@
 module School where
-  import Data.List (groupBy, sort)
+  import qualified Data.Map as Map
+  import Data.List (sort)
 
-  type Student = (Int, String)
-  type School = [Student]
+  type School = Map.Map Int [String]
 
   sorted :: School -> [(Int, [String])]
-  sorted school = sort . map gradeAndNames $ groupedStudents school
-    where groupedStudents = groupBy (\x y -> fst x == fst y) . sort
-          gradeFromList = fst . head
-          namesFromList = sort . map snd
-          gradeAndNames list = (gradeFromList list, namesFromList list)
+  sorted school = Map.toAscList school
 
   grade :: Int -> School -> [String]
-  grade n school = map snd $ filter (\x -> fst x == n) school
+  grade n school = case Map.lookup n school of
+    Just k -> k
+    Nothing -> []
 
   add :: Int -> String -> School -> School
-  add n name school = (n, name) : school
+  add n name school = Map.insertWith (\x xs -> sort $ x ++ xs)  n [name] school
 
   empty :: School
-  empty = []
+  empty = Map.empty
