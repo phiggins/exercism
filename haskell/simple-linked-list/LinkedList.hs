@@ -1,24 +1,25 @@
 module LinkedList where
-  data LinkedList a = LinkedList [(a, LinkedList a)] deriving (Show)
+  data LinkedList a = Empty | LinkedList (a, LinkedList a) deriving (Show)
 
   nil :: LinkedList a
-  nil = LinkedList []
+  nil = Empty
 
   isNil :: LinkedList a -> Bool
-  isNil (LinkedList as) = null as
+  isNil Empty = True
+  isNil _     = False
 
   new :: a -> LinkedList a -> LinkedList a
-  new a as = LinkedList [(a, as)]
+  new a as = LinkedList (a, as)
 
   next :: LinkedList a -> LinkedList a
-  next (LinkedList as) = snd $ head as
+  next (LinkedList as) = snd as
 
   datum :: LinkedList a -> a
-  datum (LinkedList as) = fst $ head as
+  datum (LinkedList as) = fst as
 
   toList :: LinkedList a -> [a]
-  toList (LinkedList [])  = []
-  toList a                = datum a : toList (next a)
+  toList Empty  = []
+  toList a      = datum a : toList (next a)
 
   fromList :: [a] -> LinkedList a
   fromList []       = nil
