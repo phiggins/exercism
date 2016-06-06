@@ -28,14 +28,10 @@ reverse :: [a] -> [a]
 reverse xs  = foldl' (\x y -> y:x) [] xs
 
 map :: (a -> b) -> [a] -> [b]
-map _ []      = []
-map f (x:xs)  = f x : map f xs
+map f = foldr (\x y -> f x : y) []
 
 filter :: (a -> Bool) -> [a] -> [a]
-filter _ []     = []
-filter f (x:xs) = case f x of
-  False -> filter f xs
-  True  -> x : filter f xs
+filter f = foldr (\x y -> if f x then x:y else y) []
 
 (++) :: [a] -> [a] -> [a]
 xs ++ ys = foldr (\x y -> x : y) ys xs
