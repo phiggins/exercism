@@ -1,5 +1,5 @@
 module LinkedList where
-  data LinkedList a = Empty | LinkedList (a, LinkedList a) deriving (Show)
+  data LinkedList a = Empty | Element a (LinkedList a)
 
   nil :: LinkedList a
   nil = Empty
@@ -9,13 +9,13 @@ module LinkedList where
   isNil _     = False
 
   new :: a -> LinkedList a -> LinkedList a
-  new a as = LinkedList (a, as)
+  new a as = Element a as
 
   next :: LinkedList a -> LinkedList a
-  next (LinkedList as) = snd as
+  next (Element _ xs) = xs
 
   datum :: LinkedList a -> a
-  datum (LinkedList as) = fst as
+  datum (Element x _) = x
 
   toList :: LinkedList a -> [a]
   toList Empty  = []
