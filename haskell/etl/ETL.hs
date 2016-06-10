@@ -3,4 +3,4 @@ module ETL where
   import Data.Char (toLower)
 
   transform :: M.Map Int [String] -> M.Map String Int
-  transform = M.fromList . (M.foldrWithKey (\k x acc -> map (\y -> (map toLower y,k)) x ++ acc) [])
+  transform = M.foldrWithKey (\k xs acc -> foldr (\x a -> M.insert (map toLower x) k a) acc xs) M.empty
