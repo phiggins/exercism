@@ -4,8 +4,7 @@ module WordCount where
   import Data.List (groupBy)
 
   wordCount :: String -> Map.Map String Int
-  wordCount = frequencies . words' . downcase
-    where frequencies = foldr (\k acc -> increment k acc) Map.empty
+  wordCount = frequencies . (wordsBy isAlphaNum) . (map toLower)
+    where frequencies = foldr increment Map.empty
           increment key = Map.insertWith (+) key 1
-          words' s = filter (all isAlphaNum) $ groupBy (\x y -> isAlphaNum x == isAlphaNum y) s
-          downcase = map toLower
+          wordsBy f = filter (all f) . groupBy (\x y -> f x == f y)
