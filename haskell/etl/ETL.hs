@@ -3,5 +3,5 @@ module ETL where
   import Data.Char (toLower)
 
   transform :: M.Map Int [String] -> M.Map String Int
-  transform = M.foldrWithKey insertValues M.empty
-    where insertValues k xs m = foldr (\x a -> M.insert (map toLower x) k a) m xs
+  transform = M.fromList . buildPairs . M.toList
+    where buildPairs xs = concat $ map (\(x,y) -> zip (map (map toLower) y) (repeat x)) xs
