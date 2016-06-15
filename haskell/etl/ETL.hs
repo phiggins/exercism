@@ -4,4 +4,4 @@ module ETL where
 
   transform :: M.Map Int [String] -> M.Map String Int
   transform = M.fromList . buildPairs . M.toList
-    where buildPairs xs = concat $ map (\(x,y) -> zip (map (map toLower) y) (repeat x)) xs
+    where buildPairs = concatMap (\(x,y) -> zip (map (map toLower) y) (repeat x))
