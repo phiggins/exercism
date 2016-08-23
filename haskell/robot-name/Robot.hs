@@ -5,11 +5,11 @@ module Robot where
   mkRobot = newStdGen
 
   robotName :: StdGen -> IO String
-  robotName r = return $ genRobotName r
+  robotName r = return $ newRobotName r
 
   resetName = undefined
 
-  genRobotName :: StdGen -> String
-  genRobotName r = fst $ foldl (\(s,g') f -> let (l,g'') = f g' in (l:s,g'')) ("", r) [randomLetter, randomLetter, randomDigit, randomDigit, randomDigit]
-    where randomLetter = randomR ('A', 'Z')
-          randomDigit = randomR ('0', '9')
+  newRobotName :: StdGen -> String
+  newRobotName r = sequence [letter, letter, digit, digit, digit]
+    where letter = randomRIO ('A', 'Z')
+          digit = randomRIO ('0', '9')
