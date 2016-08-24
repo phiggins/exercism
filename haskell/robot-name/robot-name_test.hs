@@ -39,7 +39,6 @@ robotTests =
       n1 <- mkRobot >>= robotName
       n2 <- mkRobot >>= robotName
       n1 /= n2 @? "different robots should have different names"
-  {-
   , testCase "new name should match expected pattern" $ do
       r <- mkRobot
       resetName r
@@ -69,7 +68,6 @@ robotTests =
     n2' <- robotName r2
     n1' /= n2' @? "names should be different"
     n2 @=? n2'
-    -}
   ]
 
 matchesPattern :: String -> Bool

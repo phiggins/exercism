@@ -1,15 +1,23 @@
 module Robot where
+  import Data.IORef
   import System.Random
 
-  mkRobot :: IO StdGen
-  mkRobot = newStdGen
+  type Robot = IORef String
 
-  robotName :: StdGen -> IO String
-  robotName r = return $ newRobotName r
+  mkRobot :: IO Robot
+  mkRobot = do
+    name <- newRobotName
+    newIORef name
 
-  resetName = undefined
+  robotName :: Robot -> IO String
+  robotName = readIORef
 
-  newRobotName :: StdGen -> String
-  newRobotName r = sequence [letter, letter, digit, digit, digit]
+  resetName :: Robot -> IO ()
+  resetName r = do
+    newName <- newRobotName
+    writeIORef r newName
+
+  newRobotName :: IO String
+  newRobotName = sequence [letter, letter, digit, digit, digit]
     where letter = randomRIO ('A', 'Z')
           digit = randomRIO ('0', '9')
