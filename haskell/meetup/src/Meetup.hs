@@ -21,13 +21,17 @@ dayRange schedule = case schedule of
   Last    -> reverse [21..31]
 
 isDay :: Weekday -> Day -> Bool
-isDay Monday day      = dayOfWeek day == 1
-isDay Tuesday day     = dayOfWeek day == 2
-isDay Wednesday day   = dayOfWeek day == 3
-isDay Thursday day    = dayOfWeek day == 4
-isDay Friday day      = dayOfWeek day == 5
-isDay Saturday day    = dayOfWeek day == 6
-isDay Sunday day      = dayOfWeek day == 7
+isDay weekday day = dayIndex weekday == dayOfWeek day
+
+dayIndex :: Weekday -> Int
+dayIndex weekday = case weekday of
+  Monday    -> 1
+  Tuesday   -> 2
+  Wednesday -> 3
+  Thursday  -> 4
+  Friday    -> 5
+  Saturday  -> 6
+  Sunday    -> 7
 
 dayOfWeek :: Day -> Int
 dayOfWeek day =
