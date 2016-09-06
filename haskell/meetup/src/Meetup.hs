@@ -1,6 +1,6 @@
 module Meetup (Weekday(..), Schedule(..), meetupDay) where
 
-import Data.Time.Calendar (Day, fromGregorian, toGregorian)
+import Data.Time.Calendar (Day, fromGregorian)
 import Data.Time.Calendar.WeekDate (toWeekDate)
 
 data Schedule = Teenth | First | Second | Third | Fourth | Last
