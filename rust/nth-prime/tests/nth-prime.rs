@@ -11,8 +11,18 @@ fn test_second_prime() {
 }
 
 #[test]
+fn test_fifth_prime() {
+    assert_eq!(np::nth(5), Ok(11));
+}
+
+#[test]
 fn test_sixth_prime() {
     assert_eq!(np::nth(6), Ok(13));
+}
+
+#[test]
+fn test_seventh_prime() {
+    assert_eq!(np::nth(7), Ok(17));
 }
 
 #[test]
