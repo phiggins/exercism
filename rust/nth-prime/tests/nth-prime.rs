@@ -21,6 +21,11 @@ fn test_big_prime() {
 }
 
 #[test]
+fn test_rilly_big_prime() {
+    assert_eq!(np::nth(100_001), Ok(1299721));
+}
+
+#[test]
 fn test_zeroth_prime() {
     assert!(np::nth(0).is_err());
 }
